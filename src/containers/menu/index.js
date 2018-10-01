@@ -1,6 +1,6 @@
 import React from 'react';
 import { ScrollView } from 'react-native';
-import { Button, Title } from 'react-native-paper';
+import { Button, Title, Divider } from 'react-native-paper';
 import MenuPicker from './MenuPicker';
 import styles from './styles';
 
@@ -9,6 +9,7 @@ const menus = [
     id: 1,
     text: "Pick Occasion",
     choices: [
+      "any",
       "birthday",
       "holiday",
       "office party",
@@ -21,6 +22,7 @@ const menus = [
     id: 2,
     text: "Pick Price",
     choices: [
+      "any",
       "20",
       "50",
       "100",
@@ -30,6 +32,7 @@ const menus = [
     id: 3,
     text: "Pick Age",
     choices: [
+      "any",
       "newborn",
       "todler",
       "child",
@@ -47,7 +50,8 @@ const Menu = () => {
     <ScrollView contentContainerStyle={styles.container}>
       <Title style={styles.headerText} >Search</Title>
       {menus.map(menu => <MenuPicker key={menu.id} {...menu} />)}
-      <Button icon="" mode="contained" color={"green"} style={[styles.button, styles.buttonStarted]}>Get Started</Button>
+      <Divider />
+      <Button icon="search" mode="contained" color={"green"} style={[styles.button, styles.buttonStarted]}>Get Started</Button>
     </ScrollView>
   )
 }

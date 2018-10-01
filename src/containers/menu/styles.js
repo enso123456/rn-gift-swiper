@@ -17,7 +17,7 @@ export default {
     borderRadius: 50,
   },
   buttonText: {
-    color: white
+    color: white,
   },
   buttonStarted: {
     borderRadius: 50
