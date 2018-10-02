@@ -1,7 +1,7 @@
 import React from 'react'
-import { NativeRouter, Route, Link, BackButton } from 'react-router-native'
-import Menu from '../menu/';
-import Products from '../products/';
+import { NativeRouter, Route, BackButton } from 'react-router-native'
+import Menu from '../menu';
+import Products from '../products';
 
 const App = () => (
   <NativeRouter>

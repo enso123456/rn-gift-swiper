@@ -1,6 +1,7 @@
 import React from 'react';
 import { ScrollView } from 'react-native';
 import { Button, Title, Divider } from 'react-native-paper';
+import { Link } from 'react-router-native';
 import MenuPicker from './MenuPicker';
 import styles from './styles';
 
@@ -51,7 +52,14 @@ const Menu = () => {
       <Title style={styles.headerText} >Search</Title>
       {menus.map(menu => <MenuPicker key={menu.id} {...menu} />)}
       <Divider />
-      <Button icon="search" mode="contained" color={"green"} style={[styles.button, styles.buttonStarted]}>Get Started</Button>
+      <Link to={'/products'}>
+        <Button 
+          icon="search" 
+          mode="contained" 
+          color={"green"} 
+          style={[styles.button, styles.buttonStarted]}
+        >Get Started</Button>
+      </Link>
     </ScrollView>
   )
 }
