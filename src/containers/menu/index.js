@@ -53,10 +53,10 @@ const Menu = () => {
       {menus.map(menu => <MenuPicker key={menu.id} {...menu} />)}
       <Divider />
       <Link to={'/products'}>
-        <Button 
-          icon="search" 
-          mode="contained" 
-          color={"green"} 
+        <Button
+          icon="search"
+          mode="contained"
+          color={"green"}
           style={[styles.button, styles.buttonStarted]}
         >Get Started</Button>
       </Link>

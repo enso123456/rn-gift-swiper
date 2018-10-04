@@ -1,11 +1,12 @@
 'use strict';
 import React, { PureComponent } from 'react';
-import { View, Text } from 'react-native';
+import { View } from 'react-native';
 import SwipeCards from 'react-native-swipe-cards';
-import { Button } from 'react-native-paper';
 import Card from './Card';
 import NoMoreCard from './NoMoreCard';
-import styles from './styles';
+import { CartContext, CartProvider } from '../cart/CartProvider';
+import CartButton from '../cart/CartButton';
+import BackButton from '../../components/BackButton';
 
 const cards = [
   { name: '1', image: 'https://media.giphy.com/media/GfXFVHUzjlbOg/giphy.gif' },
@@ -35,25 +36,17 @@ class Product extends PureComponent {
     }
   }
 
-  handleYup(card) {
-    console.log("yup")
-  }
-
   handleNope(card) {
     console.log("nope")
   }
 
   cardRemoved(index) {
     console.log(`The index is ${index}`);
-
     let CARD_REFRESH_LIMIT = 3
-
     if (this.state.cards.length - index <= CARD_REFRESH_LIMIT + 1) {
       console.log(`There are only ${this.state.cards.length - index - 1} cards left.`);
-
       if (!this.state.outOfCards) {
         console.log(`Adding ${cards2.length} more cards`)
-
         this.setState({
           cards: this.state.cards.concat(cards2),
           outOfCards: true
@@ -62,30 +55,27 @@ class Product extends PureComponent {
     }
   }
 
-  goBack = () => {
-    console.log('pressed');
-    this.props.history.goBack()
-  }
-
   render() {
-    console.log(this.props);
     return (
-      <View style={{ flex: 1 }}>
-        <Button mode="outlined" onPress={this.goBack} style={styles.backBtn}>
-          <Text style={styles.backText}>Back</Text>
-        </Button>
-        <SwipeCards
-          cards={this.state.cards}
-          loop={false}
-          renderCard={(cardData) => <Card {...cardData} />}
-          renderNoMoreCards={() => <NoMoreCard />}
-          showYup={true}
-          showNope={true}
-          handleYup={this.handleYup}
-          handleNope={this.handleNope}
-          cardRemoved={this.cardRemoved.bind(this)}
-        />
-      </View>
+      <CartProvider>
+        <BackButton nav={this.props.history} />
+        <CartContext.Consumer>
+          {({ addToCart }) => {
+            return (
+              <SwipeCards
+                cards={this.state.cards}
+                loop={false}
+                renderCard={(cardData) => <Card {...cardData} />}
+                renderNoMoreCards={() => <NoMoreCard />}
+                handleYup={addToCart}
+                handleNope={this.handleNope}
+                cardRemoved={this.cardRemoved.bind(this)}
+              />
+            )
+          }}
+        </CartContext.Consumer>
+        <CartButton nav={this.props.history} />
+      </CartProvider>
     )
   }
 }

@@ -1378,6 +1378,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.giftswiper;
 				PRODUCT_NAME = giftSwiper;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
@@ -1401,6 +1402,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.giftswiper;
 				PRODUCT_NAME = giftSwiper;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;

@@ -12,6 +12,7 @@
     "react-native-fast-image": "^5.0.10",
     "react-native-paper": "^2.0.1",
     "react-native-picker": "^4.3.7",
+    "react-native-responsive-ui": "^1.1.1",
     "react-native-snap-carousel": "^3.7.4",
     "react-native-swipe-cards": "^0.1.1",
     "react-native-swiper": "^1.5.13",

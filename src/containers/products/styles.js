@@ -22,13 +22,4 @@ export default {
     justifyContent: 'center',
     alignItems: 'center',
   },
-  backBtn: {
-    position: 'absolute',
-    top: 30,
-    left: 25,
-    zIndex: 1000,
-  },
-  backText: {
-    fontSize: 25
-  }
 }   
