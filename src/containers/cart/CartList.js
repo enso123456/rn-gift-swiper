@@ -8,7 +8,6 @@ import styles from './styles';
 class CartList extends ResponsiveComponent {
   render() {
     const { width, height } = this.state.window;
-    console.log(`New window dimensions: ${width}x${height}`);
     const { history, location: { state: cartItems } } = this.props;
     const numColumns = width >= 768 ? 4 : 2;
     return (
