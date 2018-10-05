@@ -1,4 +1,7 @@
 export default {
+  base: {
+    flex: 1,
+  },
   card: {
     alignItems: 'center',
     borderRadius: 5,

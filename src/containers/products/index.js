@@ -1,12 +1,14 @@
 'use strict';
 import React, { PureComponent } from 'react';
+import { connect } from 'react-redux';
 import { View } from 'react-native';
 import SwipeCards from 'react-native-swipe-cards';
 import Card from './Card';
 import NoMoreCard from './NoMoreCard';
-import { CartContext, CartProvider } from '../cart/CartProvider';
 import CartButton from '../cart/CartButton';
 import BackButton from '../../components/BackButton';
+import { addToCart } from '../../reducers/cart/actions';
+import styles from './styles';
 
 const cards = [
   { name: '1', image: 'https://media.giphy.com/media/GfXFVHUzjlbOg/giphy.gif' },
@@ -28,19 +30,26 @@ const cards2 = [
 ];
 
 class Product extends PureComponent {
-  constructor(props) {
-    super(props);
-    this.state = {
-      cards: cards,
-      outOfCards: false
-    }
+  state = {
+    cards: cards,
+    outOfCards: false,
+    cart: [],
+  }
+
+  componentDidMount() {
+    const { cart } = this.props;
+    this.setState(({ prev, current }) => ({ cart }));
+  }
+
+  componentWillReceiveProps({ cart }) {
+    this.setState(({ prev, current }) => ({ cart }));
   }
 
   handleNope(card) {
     console.log("nope")
   }
 
-  cardRemoved(index) {
+  cardRemoved = (index) => {
     console.log(`The index is ${index}`);
     let CARD_REFRESH_LIMIT = 3
     if (this.state.cards.length - index <= CARD_REFRESH_LIMIT + 1) {
@@ -55,29 +64,37 @@ class Product extends PureComponent {
     }
   }
 
+  handleYup = (item) => {
+    this.props.addToCart(item);
+    this.cardRemoved(item);
+  }
+
   render() {
     return (
-      <CartProvider>
+      <View style={styles.base}>
         <BackButton nav={this.props.history} />
-        <CartContext.Consumer>
-          {({ addToCart }) => {
-            return (
-              <SwipeCards
-                cards={this.state.cards}
-                loop={false}
-                renderCard={(cardData) => <Card {...cardData} />}
-                renderNoMoreCards={() => <NoMoreCard />}
-                handleYup={addToCart}
-                handleNope={this.handleNope}
-                cardRemoved={this.cardRemoved.bind(this)}
-              />
-            )
-          }}
-        </CartContext.Consumer>
-        <CartButton nav={this.props.history} />
-      </CartProvider>
+        <SwipeCards
+          showYup={false}
+          showNope={false}
+          cards={this.state.cards}
+          loop={false}
+          renderCard={(cardData) => <Card {...cardData} />}
+          renderNoMoreCards={() => <NoMoreCard />}
+          handleYup={this.handleYup}
+          handleNope={this.handleNope}
+        />
+        <CartButton nav={this.props.history} cart={this.state.cart} />
+      </View>
     )
   }
 }
 
-export default Product;
+const mapStateToProps = ({ cart }) => {
+  return { cart: cart.carts };
+}
+
+const mapDispatchToProps = dispatch => ({
+  addToCart: (item) => dispatch(addToCart(item))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Product);
