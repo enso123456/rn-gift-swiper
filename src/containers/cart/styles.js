@@ -1,6 +1,12 @@
 export default {
   container: {
     flex: 1,
+    justifyContent: 'center'
+  },
+  noCart: {
+    fontSize: 18,
+    color: 'grey',
+    textAlign: 'center',
   },
   cartButton: {
     position: 'absolute',

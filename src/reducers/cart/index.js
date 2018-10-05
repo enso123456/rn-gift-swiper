@@ -13,7 +13,11 @@ export default function cartReducer(state = initialState, action) {
       }
 
     case REMOVE_TO_CART:
-      return state.carts.filter(cart => cart.id != action.payload);
+      console.log(action.payload)
+      return {
+        ...state,
+        carts: state.carts.filter(cart => cart.name != action.payload.toString())
+      }
 
     default:
       return initialState;

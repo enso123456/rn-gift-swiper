@@ -1,30 +1,27 @@
 import React from 'react';
-import { FlatList, View, } from 'react-native';
-import { MediaQuery, ResponsiveComponent } from 'react-native-responsive-ui';
-import BackButton from '../../components/BackButton';
+import { FlatList, View } from 'react-native';
+import { ResponsiveComponent } from 'react-native-responsive-ui';
 import CartItem from './CartItem';
 import styles from './styles';
 
 class CartList extends ResponsiveComponent {
   render() {
-    const { width, height } = this.state.window;
-    const { history, location: { state: cartItems } } = this.props;
+    const { width } = this.state.window;
+    const { cart, onRemoveItem } = this.props;
     const numColumns = width >= 768 ? 4 : 2;
     return (
       <View style={styles.container}>
-        <BackButton nav={history} />
         <FlatList
           numColumns={numColumns}
-          data={cartItems}
+          data={cart}
           contentContainerStyle={styles.cartList}
-          renderItem={({ item }) => (<CartItem {...item} />)}
+          renderItem={({ item }) => (<CartItem {...item} onRemoveItem={onRemoveItem} />)}
           keyExtractor={(index) => { return index.name }}
         />
       </View>
     )
   }
 }
-
 
 export default CartList;
 
